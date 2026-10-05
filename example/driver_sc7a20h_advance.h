@@ -1,1 +1,66 @@
-/* Architecture placeholder: advanced example declarations will be added later. */
+/**
+ * @file      driver_sc7a20h_advance.h
+ * @brief     driver sc7a20h advance example header file
+ * @version   1.0.0
+ * @author    LQ
+ * @date      2026-10-05
+ * @license   MIT
+ *
+ * <h3>history</h3>
+ * <table>
+ * <tr><th>Date        <th>Version  <th>Author  <th>Description
+ * <tr><td>2026/10/05  <td>1.0.0    <td>LQ      <td>first upload
+ * </table>
+ */
+
+#ifndef DRIVER_SC7A20H_ADVANCE_H
+#define DRIVER_SC7A20H_ADVANCE_H
+
+#include "driver_sc7a20h.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#define SC7A20H_ADVANCE_DEFAULT_FIFO_WATERMARK 8U /**< default raw FIFO threshold */
+
+/**
+ * @addtogroup sc7a20h_example_driver
+ * @{
+ */
+/**
+ * @brief      initialize advanced fifo example
+ * @param[in]  interface bus interface
+ * @param[in]  address IIC address selection
+ * @return     status code
+ *             - 0 success
+ *             - 1 initialization failed
+ * @note       FIFO_DATA is outside the supported SPI address bank
+ */
+uint8_t sc7a20h_advance_init(sc7a20h_interface_t interface, sc7a20h_address_t address);
+/**
+ * @brief      read fifo data bytes
+ * @param[out] *buf pointer to a FIFO data buffer
+ * @param[in]  len number of bytes to read
+ * @return     status code
+ *             - 0 success
+ *             - 1 read failed
+ *             - 2 buffer is invalid
+ * @note       caller chooses byte count
+ */
+uint8_t sc7a20h_advance_fifo_read(uint8_t *buf, uint16_t len);
+/**
+ * @brief  deinitialize advanced example
+ * @return status code
+ *         - 0 success
+ *         - 1 deinitialization failed
+ * @note   none
+ */
+uint8_t sc7a20h_advance_deinit(void);
+/** @} */
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif
