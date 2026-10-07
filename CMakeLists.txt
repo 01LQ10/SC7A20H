@@ -7,7 +7,7 @@ project(SC7A20H LANGUAGES C)
 
 # ===================== 可配置编译开关 =====================
 option(SC7A20H_BUILD_TEST "Build test source code" ON)
-option(SC7A20H_BUILD_EXAMPLE "Build example source code" OFF)
+option(SC7A20H_BUILD_EXAMPLE "Build example source code" ON)
 
 # ===================== 核心静态库目标 =====================
 add_library(sc7a20h STATIC
@@ -35,31 +35,52 @@ target_include_directories(sc7a20h
 )
 
 # ===================== test 测试代码（可选编译，默认OFF） =====================
-if(SC7A20H_BUILD_TEST)
-    add_library(sc7a20h_test STATIC
+# if(SC7A20H_BUILD_TEST)
+#     add_library(sc7a20h_test STATIC
+#         test/driver_sc7a20h_interrupt_test.c
+#         test/driver_sc7a20h_read_test.c
+#         test/driver_sc7a20h_register_test.c
+#     )
+#     target_link_libraries(sc7a20h_test PUBLIC SC7A20H::SC7A20H)
+#     target_include_directories(sc7a20h_test
+#         PUBLIC
+#             ${CMAKE_CURRENT_SOURCE_DIR}/test
+#     )
+#     add_library(SC7A20H::test ALIAS sc7a20h_test)
+# endif()
+
+if(C8724Q_BUILD_TEST)
+    target_sources(sc7a20h PRIVATE
         test/driver_sc7a20h_interrupt_test.c
         test/driver_sc7a20h_read_test.c
         test/driver_sc7a20h_register_test.c
     )
-    target_link_libraries(sc7a20h_test PUBLIC SC7A20H::SC7A20H)
-    target_include_directories(sc7a20h_test
-        PUBLIC
-            ${CMAKE_CURRENT_SOURCE_DIR}/test
+    target_include_directories(sc7a20h PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/test
     )
-    add_library(SC7A20H::test ALIAS sc7a20h_test)
 endif()
-
 # ===================== example 示例代码（可选编译，默认OFF） =====================
-if(SC7A20H_BUILD_EXAMPLE)
-    add_library(sc7a20h_example STATIC
+# if(SC7A20H_BUILD_EXAMPLE)
+#     add_library(sc7a20h_example STATIC
+#         example/driver_sc7a20h_advance.c
+#         example/driver_sc7a20h_basic.c
+#         example/driver_sc7a20h_interrupt_example.c
+#     )
+#     target_link_libraries(sc7a20h_example PUBLIC SC7A20H::SC7A20H)
+#     target_include_directories(sc7a20h_example
+#         PUBLIC
+#             ${CMAKE_CURRENT_SOURCE_DIR}/example
+#     )
+#     add_library(SC7A20H::example ALIAS sc7a20h_example)
+# endif()
+
+if(C8724Q_BUILD_EXAMPLE)
+    target_sources(sc7a20h PRIVATE
         example/driver_sc7a20h_advance.c
         example/driver_sc7a20h_basic.c
         example/driver_sc7a20h_interrupt_example.c
     )
-    target_link_libraries(sc7a20h_example PUBLIC SC7A20H::SC7A20H)
-    target_include_directories(sc7a20h_example
-        PUBLIC
-            ${CMAKE_CURRENT_SOURCE_DIR}/example
+    target_include_directories(sc7a20h PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/example
     )
-    add_library(SC7A20H::example ALIAS sc7a20h_example)
 endif()
