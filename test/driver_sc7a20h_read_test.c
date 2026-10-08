@@ -66,7 +66,7 @@ uint8_t sc7a20h_read_test(sc7a20h_interface_t interface, sc7a20h_address_t addre
     }
     if (res == 0U)
     {
-        res = sc7a20h_set_scale(&gs_handle, SC7A20H_SCALE_2G); /* configure scale */
+        res = sc7a20h_set_scale(&gs_handle, SC7A20H_SCALE_16G); /* configure scale */
     }
     if (res == 0U)
     {
@@ -92,10 +92,10 @@ uint8_t sc7a20h_read_test(sc7a20h_interface_t interface, sc7a20h_address_t addre
             (void)sc7a20h_deinit(&gs_handle); /* close bus */
             return 1; /* return error */
         }
-        sc7a20h_interface_debug_print("sc7a20h: raw %d %d %d; g %0.3f %0.3f %0.3f.\n",
+        sc7a20h_interface_debug_print("sc7a20h:%d,%d,%d,%0.3f,%0.3f,%0.3f\n",
                                       (int)data.raw[0], (int)data.raw[1], (int)data.raw[2],
-                                      (double)data.acceleration_g[0], (double)data.acceleration_g[1],
-                                      (double)data.acceleration_g[2]); /* print sample */
+                                      data.acceleration_g[0], data.acceleration_g[1],
+                                      data.acceleration_g[2]); /* print sample */
     }
     res = sc7a20h_stop_continuous_read(&gs_handle); /* stop acquisition */
     if (res == 0U)
